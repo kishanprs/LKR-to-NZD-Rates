@@ -23,7 +23,7 @@ jobs:
 
       - name: Run rate check
         env:
-          THRESHOLD: "198"
+          THRESHOLD: "190"
           CALLMEBOT_PHONE: ${{ secrets.CALLMEBOT_PHONE }}
           CALLMEBOT_APIKEY: ${{ secrets.CALLMEBOT_APIKEY }}
           TELEGRAM_USERNAME: ${{ secrets.TELEGRAM_USERNAME }}
