@@ -1,34 +1,28 @@
 name: Check NZD to LKR rate
-
 on:
   schedule:
     # Runs every 30 minutes. GitHub may delay this a few minutes under load.
     - cron: "*/30 * * * *"
   workflow_dispatch: {}   # lets you trigger it manually from the Actions tab
-
 permissions:
   contents: write   # needed so the workflow can commit the updated state.json
-
 jobs:
   check-rate:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repo
         uses: actions/checkout@v4
-
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-
-     - name: Run rate check
+      - name: Run rate check
         env:
           THRESHOLDS: "198,201"
           CALLMEBOT_PHONE: ${{ secrets.CALLMEBOT_PHONE }}
           CALLMEBOT_APIKEY: ${{ secrets.CALLMEBOT_APIKEY }}
           TELEGRAM_USERNAME: ${{ secrets.TELEGRAM_USERNAME }}
         run: python3 scripts/check_rate.py
-
       - name: Commit updated state (if changed)
         run: |
           git config user.name "github-actions[bot]"
